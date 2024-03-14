@@ -1,4 +1,4 @@
-export default function () {
+export default function Integracao1 () {
     return (
         <div className="integracao">
             <div className="vermelha">

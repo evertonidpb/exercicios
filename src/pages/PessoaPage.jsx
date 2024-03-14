@@ -4,4 +4,5 @@ export default function PessoaPage (){
     return (
         <Pessoa  nome="Jose" idade={30}/>
     )
+    
 }
