@@ -1,5 +1,6 @@
 import styles from './Portas.module.css';
 import PortaModel from './PortaModel';
+import Presente from './presente';
 
 interface PortaProps {
  value: PortaModel;
@@ -12,19 +13,35 @@ export default function Porta(props: PortaProps) {
   const porta = props.value;
 
   // se a porta tiver sido selecionada, ele aplica o css q sobrescreve a estilização da estrutura, deixando-o c/ a cor diferente
-const selecionada = porta.selecionada ? styles.selecionada : styles.estrutura;
+  // porém, ele só faz a seleção se a porta ñ estiver aberta
+const selecionada = porta.selecionada && !porta.aberta ? styles.selecionada : styles.estrutura;
  
-// ele chama a propriedade onChange do objeto porta q por sua 
+// altera a seleção da porta
 const alternarSelecao = e => props.onChange(porta.alternarSelecao());
-    
+
+// abre porta
+const abrirPorta = e =>{
+  let aberta = porta.abrir();
+  props.onChange(aberta);
+  e.stopPropagation();
+}
+
+// renderiza a porta, mas isso só acontece se o atributo "aberta" da classe porta estiver como false;
+function renderizaPorta (){
+  return (
+    <div className={styles.porta}>
+      <div className={styles.numero}> {porta.numero}</div>
+      <div className={styles.macaneta} onClick={abrirPorta}>  </div>
+   </div>
+  )
+}
+
+
    return (
         
-         <div className={styles.area}>
+         <div className={styles.area} onClick={alternarSelecao}>
           <div className={selecionada}>
-            <div className={styles.porta}>
-             <div className={styles.numero}> {porta.numero}</div>
-             <div className={styles.macaneta}>  </div>
-            </div>
+           {porta.fechada ? renderizaPorta() : porta.temPresente ? <Presente /> : false}
           </div>
           <div className={styles.chao}> &nbsp;</div>          
         </div>

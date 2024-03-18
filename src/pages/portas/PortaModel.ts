@@ -30,12 +30,16 @@ export default class PortaModel {
         return this.#aberta;
     }
 
+    get fechada() {
+        return !this.#aberta;
+    }
+
+
     // retorna uma nova instância da porta c/ o atributo selecionada alterado. Isso impede q o objeto 
     // da porta original seja modificado:
     alternarSelecao () {
         const selecionada = !this.selecionada;
-        // o acesso dos atributos ñ precisa ser feito usando #, pois ele está acessando o método, 
-        // ñ o atributo diretamente
+        // o acesso dos atributos ñ precisa ser feito usando #, pois ele está acessando o método, ñ o atributo diretamente
         return new PortaModel(this.numero, this.temPresente, selecionada, this.aberta)
     }
 
@@ -47,7 +51,7 @@ export default class PortaModel {
 
     desselecionar (){
         const selecionada = false;
-        return new PortaModel(this.numero, this.temPresente, this.selecionada, this.aberta);
+        return new PortaModel(this.numero, this.temPresente, selecionada, this.aberta);
     }
 
 
