@@ -23,6 +23,7 @@ const alternarSelecao = e => props.onChange(porta.alternarSelecao());
 const abrirPorta = e =>{
   let aberta = porta.abrir();
   props.onChange(aberta);
+  // o stop propagation é necessário p/ q ele pare de renderizar a porta
   e.stopPropagation();
 }
 
